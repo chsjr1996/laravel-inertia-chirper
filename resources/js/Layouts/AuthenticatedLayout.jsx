@@ -36,6 +36,24 @@ export default function Authenticated({ header, children }) {
                 >
                   Chirps
                 </NavLink>
+                {user.is_admin === 1 && (
+                  <>
+                    <NavLink
+                      href="/telescope"
+                      target="_blank"
+                      inertiaLink={false}
+                    >
+                      Telescope
+                    </NavLink>
+                    <NavLink
+                      href="/horizon"
+                      target="_blank"
+                      inertiaLink={false}
+                    >
+                      Horizon
+                    </NavLink>
+                  </>
+                )}
               </div>
             </div>
 
@@ -139,6 +157,24 @@ export default function Authenticated({ header, children }) {
             >
               Chirps
             </ResponsiveNavLink>
+            {user.is_admin === 1 && (
+              <>
+                <ResponsiveNavLink
+                  href="/telescope"
+                  target="_blank"
+                  inertiaLink={false}
+                >
+                  Telescope
+                </ResponsiveNavLink>
+                <ResponsiveNavLink
+                  href="/horizon"
+                  target="_blank"
+                  inertiaLink={false}
+                >
+                  Horizon
+                </ResponsiveNavLink>
+              </>
+            )}
           </div>
 
           <div className="pt-4 pb-1 border-t border-gray-200">

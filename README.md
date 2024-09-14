@@ -11,7 +11,7 @@ This repository contains a simple app sample based on [Laravel Inertia Chirper](
 
 - Additions
   - [ ] Add Laravel Reverb
-  - [ ] Add Laravel Horizon and Telescope
+  - [x] Add Laravel Horizon and Telescope
   - [ ] Add Laravel Socialite
   - [ ] Add automated tests with Pest
   - [ ] Add Github Actions
