@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChirpDeleteRequest;
+use App\Http\Requests\ChirpStoreRequest;
+use App\Http\Requests\ChirpUpdateRequest;
 use App\Models\Chirp;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -32,13 +33,9 @@ class ChirpController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ChirpStoreRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            "message" => "required|string|max:255",
-        ]);
-
-        $request->user()->chirps()->create($validated);
+        $request->user()->chirps()->create($request->validated());
 
         return redirect(route("chirps.index"));
     }
@@ -48,29 +45,16 @@ class ChirpController extends Controller
      */
     public function show(Chirp $chirp)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Chirp $chirp)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Chirp $chirp): RedirectResponse
-    {
-        Gate::authorize("update", $chirp);
-
-        $validated = $request->validate([
-            "message" => "required|string|max:255",
-        ]);
-
-        $chirp->update($validated);
+    public function update(
+        ChirpUpdateRequest $request,
+        Chirp $chirp
+    ): RedirectResponse {
+        $chirp->update($request->validated());
 
         return redirect(route("chirps.index"));
     }
@@ -78,12 +62,10 @@ class ChirpController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chirp $chirp)
+    public function destroy(ChirpDeleteRequest $request, Chirp $chirp)
     {
-        Gate::authorize('delete', $chirp);
-
         $chirp->delete();
 
-        return redirect(route('chirps.index'));
+        return redirect(route("chirps.index"));
     }
 }
